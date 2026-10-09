@@ -1,5 +1,7 @@
 package lv.venta.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -55,6 +57,7 @@ public class Professor {
 	@OneToOne(mappedBy = "professor")
 	@ToString.Exclude //neiekļaut šo mainīgo toString funkcijas veidošanā
 	//@JsonIgnore <-līdzīgi ka @ToString.Exclude, lai neveidojas cirkulārie izsaukumi
+	@JsonIgnore
 	private Course course;
 	
 	

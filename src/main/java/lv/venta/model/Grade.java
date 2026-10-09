@@ -1,5 +1,7 @@
 package lv.venta.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +47,7 @@ public class Grade {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "Idc")
+	@JsonIgnore
 	private Course course;
 	
 	public Grade(int grvalue, Student student,Course course) {
