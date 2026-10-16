@@ -17,7 +17,7 @@ public class GradeDTO {
 	private String studentName;
 	private String studentSurname;
 	private String courseTitle;
-	private int gradeValue;
+	private int grvalue;
 	
 	
 

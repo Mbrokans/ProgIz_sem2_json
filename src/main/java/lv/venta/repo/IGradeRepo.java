@@ -17,9 +17,7 @@ public interface IGradeRepo extends CrudRepository<Grade, Long>{
 	ArrayList<Grade> findByGrvalue(int level);
 
 
-	void getGradeValue();
 
-
-	boolean existsByGradevalueAndStudentAndCourse(int gradeValue, Student stud, Course course);
+	boolean existsBygrvalueAndStudentAndCourse(int gradeValue, Student stud, Course course);
 
 }
