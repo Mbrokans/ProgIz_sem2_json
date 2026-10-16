@@ -7,8 +7,11 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,49 +69,54 @@ public class FilterController {
 	}
 	
 	@GetMapping("/student/failed")//localhost:8080/filter/student/failed
-	public String getControllerFailedStudents(Model model) {
+	public ResponseEntity<?> getControllerFailedStudents() {
 		try
 		{
-			model.addAttribute("package", filterService.filterStudentsFailed());
-			return "show-multiple-students";
+			
+			return new ResponseEntity<ArrayList<Student>> 
+			( filterService.filterStudentsFailed(),
+					HttpStatusCode.valueOf(200));
+			
 		}
 		catch (Exception e) {
-			//e.printStackTrace();
-			model.addAttribute("package", e.getMessage());
-			return "error-page";
+			return new ResponseEntity<String>(e.getMessage(),
+					HttpStatusCode.valueOf(409));
 		}
 	}
 	
 	
 	@GetMapping("/grades/10") //localhost:8080/filter/grades/10
-	public String getControllerGrades10(Model model) {
+	public ResponseEntity<?> getControllerGrades10() {
 		try
 		{
-			model.addAttribute("package", 
-				filterService.filterExcellentGrades());
-			return "show-multiple-grades";
+			return new ResponseEntity<ArrayList<Grade>>( 
+				filterService.filterExcellentGrades(),
+				HttpStatusCode.valueOf(200));
+		
 		}
 		catch (Exception e) {
-			model.addAttribute("package", e.getMessage());
-			return "error-page";
+			return new ResponseEntity<String>(e.getMessage(),
+					HttpStatusCode.valueOf(409));
 		}
 		
 	}
 	
 	@GetMapping("/courses/creditpoints/{level}")//localhost:8080/filter/courses/creditpoints/5
-	public String getControllerCoursesCpLessThan
-	(@PathVariable("level")int level, Model model) {
+	public ResponseEntity<?> getControllerCoursesCpLessThan
+	(@PathVariable("level")int level) {
 		try
 		{
-		model.addAttribute("package", filterService.filterCourseByCrediPointsLessThan(level));
-			return "show-multiple-courses";
+			return new ResponseEntity<ArrayList<Course>> 
+			( filterService.filterCourseByCrediPointsLessThan(level),
+			HttpStatusCode.valueOf(200));
 		}
 		catch (Exception e) {
-			model.addAttribute("package", e.getMessage());
-			return "error-page";
+			return new ResponseEntity<String>(e.getMessage(),
+					HttpStatusCode.valueOf(409));
 		}
 	}
 	
+		
 	
 
 }

@@ -81,8 +81,22 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 
 	@Override
 	public void updateById(long id, String name, String surname) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if(studRepo.count() == 0) {
+			throw new Exception("Nevar izmainit, jo tabula ir tuksa");
+		}
+		if(id<1) {
+			throw new Exception("Id nevar but negativs");
+		}
+		if(!studRepo.existsById(id)) {
+			throw new Exception("Students ar id " + id + " neeksistē");
+		}
+		//TODO pārbaudīt name un surname uz not null, not empty un regex
+		Student stud = studRepo.findById(id).get();
+		stud.setName(name);
+		stud.setSurname(surname);
+		studRepo.save(stud);
 	}
-
+		
+	
 }
+
