@@ -17,8 +17,13 @@ import lv.venta.service.IGradeService;
 @RequestMapping("/grade")
 public class GradeController {
 
+	private final FilterController filterController;
 	@Autowired
 	private IGradeService gradeService;
+
+	GradeController(FilterController filterController) {
+		this.filterController = filterController;
+	}
 	
 	@PostMapping("/add/one")//localhost8080/grade/add/one
 	private ResponseEntity<?> postControllerAddOneGrade(@RequestBody GradeDTO gradeDTO){
@@ -30,5 +35,18 @@ public class GradeController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatusCode.valueOf(409));
 		}
 	}
+	
+	@PostMapping("/add/multiple")// localhost:8080/grade/add/multiple
+	public ResponseEntity<?> postControlleraddMultipleGrades(@RequestBody ArrayList<GradeDTO> gradesDTO){
+		System.out.println(gradesDTO);
+		try {
+			gradeService.addNewGrades(gradesDTO);
+			return new ResponseEntity<ArrayList<GradeDTO>>(gradeService.retrieveAll(),
+					HttpStatusCode.valueOf(200));
+		} catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatusCode.valueOf(409));
+		}
+	}
+		
 	
 }
