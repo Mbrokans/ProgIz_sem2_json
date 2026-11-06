@@ -22,7 +22,7 @@ class StudentRepoTest {
 		assertEquals(student.getName(), studentFromDB.getName());
 		assertEquals(student.getSurname(), studentFromDB.getSurname());
 		assertTrue(studRepo.existsByNameAndSurname("Aivars", "Kiris"));
-		assertTrue(studRepo.existsByNameAndSurname("sfaghw", "wfegr"));
+		assertFalse(studRepo.existsByNameAndSurname("sfaghw", "wfegr"));
 		
 	}
 
