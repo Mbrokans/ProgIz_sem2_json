@@ -23,7 +23,7 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 	//TODO create un update pabeigt mājās, pēc līdzīga piemera, kā product (Sem1) create un update 
 	
 	@Override
-	public void create(Student newObject) throws Exception {
+	public Student create(Student newObject) throws Exception {
 		if(newObject == null) {
 			throw new Exception("Students nevar būt tukšs");
 		}
@@ -33,7 +33,7 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 			throw new Exception("Tāds students jau eksistē!");
 		}
 		
-		studRepo.save(newObject);
+		return studRepo.save(newObject);
 		
 	}
 
